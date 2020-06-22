@@ -1,13 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => {
   
   return (
     <div className="App">
-      
-      <h1>Learning to test React</h1>
+      <h1>learn react!!!</h1>
     </div>
   );
 }
