@@ -69,3 +69,29 @@ If any errors are thrown, the test will fail
 
 
 ## Enzyme
+
+Enzyme isn't shipped with Create-React-App so it needs to be installed.
+Three packages need to be installed:
+
+```html
+npm install --save-dev enzyme jest-enzyme
+```
+
+Saved as dependencies for testing purposes and not production
+Jest-enzyme - so Jest and Enzyme can talk to one another
+enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect
+
+## What is Enzyme?
+
+* Enzyme is a tool that creates a Virtual DOM, which is needed when testing React without a browser.
+
+* Create-React-App uses REACT-DOM for this and so does Enzyme(under the hood)
+
+* Enzyme's extensive toolkit allows developers to search through the DOM using jQuery-type and CSS-type selectors
+
+* Events can also be simulated on the DOM
+
+### Shallow Rendering
+
+When writing unit tests for React, shallow rendering can be helpful Shallow rendering allows developers to render elements that are only one level deep i.e.
+for a given parent component with various child components, those child components won't be rendered. Instead placeholders will take their place, and only the parent component will be rendered, therefore allowing for quicker testing.
