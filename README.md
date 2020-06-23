@@ -226,3 +226,62 @@ serve -s build
 ```
 
 Go to localhost:5000
+
+## DRYing up tests
+
+Functions can be used to avoid duplication and repetition in tests, similar to the use of before hooks in rspec and beforeEach() functions in JavaScript.
+
+```html
+const setup = (props={}, state=null) => {
+  return shallow(<App {...props} />)
+}
+``` 
+This setup method can then replace some of the code in each test e.g.
+
+```html
+test('it renders without an error', () => {
+  const wrapper = setup();
+  const appComponent = findByTestAttribute(wrapper, 'component-app');
+  expect(appComponent.length).toBe(1);
+});
+```
+
+```html
+const wrapper - setup();
+```
+instead of:
+```html
+const wrapper = shallow(<App />);
+```
+
+Another example of a function to DRY up test code:
+
+```html
+const findByTestAttribute = (wrapper, val) => {
+   return wrapper.find(`[data-test="${val}"]`);
+ }
+``` 
+
+Then the findByTestAttribute() function can be used to replace some code in each test - thereby avoiding unecessary duplication.
+```html
+const counterDisplay = findByTestAttribute(wrapper, 'counterDisplay');
+```
+instead of:
+```html
+const counterDisplay = wrapper.find("[data-test='counterDisplay']")
+```
+
+**Side Note - JS Docs**
+
+An example of a JS doc for the setup() function
+ /** 
+ * Factory function to create a ShallowWrapper for the App component.
+ * @function setup
+ * @param {object} props 
+ * @param {any} state  - Initial state for setup
+ * @returns {ShallowWrapper}
+ */
+
+JS docs explain what particular functions do and can be placed just above functions
+
+
