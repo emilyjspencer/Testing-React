@@ -51,3 +51,9 @@ test('it renders the display counter', () => {
   expect(counterDisplay.length).toBe(1);
 })
 
+test('the counter starts at 0', () => {
+  const wrapper = setup();
+  const initialCounterState = wrapper.state('counter');
+  expect(initialCounterState).toBe(0);
+})
+
