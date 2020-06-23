@@ -7,6 +7,18 @@ import App from './App';
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 /**
+ * Return ShallowWrapper containing node(s) with the given data-test value
+ * @param {ShallowWrapper} wrapper - Enzyme shallow wrapper to search with
+ * @param { string } val - Value of data-test attribute
+ * @returns {ShallowWrapper}
+ */
+
+ 
+ const findByTestAttribute = (wrapper, val) => {
+   return wrapper.find(`[data-test=${val}]`);
+ };
+
+ /** 
  * Factory function to create a ShallowWrapper for the App component.
  * @function setup
  * @param {object} props 
