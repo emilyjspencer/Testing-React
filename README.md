@@ -174,4 +174,55 @@ test('it renders correctly', () => {
 }
 ```
 
-This test passes s
+This test passes 
+
+## Removing data-test attributes from the production code
+
+Install the following package
+
+```html
+npm install —save-dev babel-plugin-react-remove-properties
+```
+Run npm run eject:
+
+```html
+npm run eject
+```
+which takes the configuration files that had been hidden by Create-React-App and makes them configurable to the developer.
+The package.json will now list all of the dependencies, not just the ones that the developer installed.
+
+Update the babel cofiguraiton by copying the following to the 'babel' script in package.json:
+
+```html
+Add to the package.json - copy under the babel line
+
+
+“babel”: {
+  "env": {
+    "production": {
+      "plugins": [
+        ["react-remove-properties", {"properties": ["data-test"]}
+      ]
+    }, “presents”:[
+      “react-app”
+  }
+}
+```
+Create a production build:
+
+```html
+npm run build
+```
+
+Run a static server:
+```html
+npm install -g server or sudo npm install -g server
+```
+
+Run the command to serve the static app:
+
+```html
+serve -s build
+```
+
+Go to localhost:5000
