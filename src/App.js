@@ -5,7 +5,7 @@ const App = () => {
   
   return (
     <div className="App">
-      <h1>learn react!!!</h1>
+      <h1>learn react testing!!!</h1>
     </div>
   );
 }
