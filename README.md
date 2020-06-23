@@ -20,6 +20,8 @@ By default, watch mode only watches for changes since the last commit
 a
 ```
 
+<hr>
+
 **Jest tests**
 
 By default, Jest looks for files in the src directory with the extension .test.js
@@ -81,6 +83,8 @@ Saved as dependencies for testing purposes and not production
 Jest-enzyme - so Jest and Enzyme can talk to one another
 enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect
 
+<hr>
+
 ## What is Enzyme?
 
 * Enzyme is a tool that creates a Virtual DOM, which is needed when testing React without a browser.
@@ -90,6 +94,8 @@ enzyme-adapter-react-16 - or whichever version of React that a developer is usin
 * Enzyme's extensive toolkit allows developers to search through the DOM using jQuery-type and CSS-type selectors
 
 * Events can also be simulated on the DOM
+
+<hr>
 
 ## Setting up Enzyme
 
@@ -103,7 +109,7 @@ import Enzyme from ‘enzyme’;
 import EnzymeAdapter from ‘enzyme-adapter-react-16’;
 ```
 
-* Enzyme also needs to be configured with an object that specifies and adapter. This object is an instance of the Adapter Object.
+* Enzyme also needs to be configured with an object that specifies an adapter. This object is an instance of the Enzyme Adapter base class.
 Thus, the following code also needs to be added to the test file:
 ```html
 
@@ -113,24 +119,32 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 Remove the test code and run npm test to check that the setup has been successful.
 
+<hr>
 
 ## Using Enzyme in tests
+
+### Shallow Rendering
 
 The shallow function needs to be required i.e.
 ```html
 import Enzyme, { shallow } from 'enzyme';
 ```
 
-* The shallow function takes JSX as an argument and returns a shallow wrapper. 
+* Enzyme's shallow() function is used to render components
 
-### Shallow Rendering
+* shallow() takes JSX as an argument and returns a shallow wrapper. 
 
-When writing unit tests for React, shallow rendering can be helpful Shallow rendering allows developers to render elements that are only one level deep i.e.
-for a given parent component with various child components, those child components won't be rendered. Instead placeholders will take their place, and only the parent component will be rendered, therefore allowing for quicker testing.
+* When writing unit tests for React, shallow rendering can be helpful Shallow rendering allows developers to render elements that are only one level deep i.e.
+for a given parent component with various child components, those child components won't be rendered.
+*  Instead placeholders will take their place, and only the parent component will be rendered, therefore allowing for quicker testing.
+
+
+<hr>
+
 
 ## Debugging with Enzyme
 
-* debug can used to debug
+* debug can used to debug React applications
 
 ```html
 test('renders correctly', () => {
@@ -149,12 +163,14 @@ PASS  src/App.test.js
   console.log src/App.test.js:12
     <div className="App">
       <h1>
-        learn react testing!!!
+        Learning to test React!!!
       </h1>
     </div>
 ```
 
 Allows us to get visibility because it returns the DOM as a string
+
+<hr>
 
 ## Using assertions
 
@@ -175,6 +191,8 @@ test('it renders correctly', () => {
 ```
 
 This test passes 
+
+<hr>
 
 ## Removing data-test attributes from the production code
 
@@ -227,6 +245,8 @@ serve -s build
 
 Go to localhost:5000
 
+<hr>
+
 ## DRYing up tests
 
 Functions can be used to avoid duplication and repetition in tests, similar to the use of before hooks in rspec and beforeEach() functions in JavaScript.
@@ -271,6 +291,8 @@ instead of:
 const counterDisplay = wrapper.find("[data-test='counterDisplay']")
 ```
 
+<hr>
+
 **Side Note - JS Docs**
 
 An example of a JS doc for the setup() function
@@ -284,6 +306,54 @@ An example of a JS doc for the setup() function
 
 JS docs explain what particular functions do and can be placed just above functions
 
+<hr>
+
 ## Testing state
 
+### Class-based components
 
+The methods setState() and state() can be used to test state (for classical /class-based components)
+
+App.js
+
+```html
+// code omitted for brevity
+
+ render() {
+  return (
+    <div data-test="component-app">
+      <h1>App</h1>
+      <button onClick={() => this.setState({ counter: this.state.counter + 1})} data-test="increment-button">I am a button</button>
+      <h2 data-test="counterDisplay">{this.state.counter}</h2>
+    </div>
+  );
+```
+
+App.test.js
+
+```html
+
+test('the counter starts at 0', () => {
+  const wrapper = setup();
+  const initialCounterState = wrapper.state('counter');
+  expect(initialCounterState).toBe(0);
+})
+
+test('the counter display is incremented by 1 on each button click', () => {
+  const counter = 7;
+  const wrapper = setup(null, { counter });
+  const button = findByTestAttribute(wrapper, 'increment-button'); // used to find the button
+  button.simulate('click'); // used to simulate a button click
+  const counterDisplay = findByTestAttribute(wrapper, 'counterDisplay'); // used to find the counterDisplay
+  expect(counterDisplay.text()).toContain(counter + 1) // checks //that the counter has been incremented by 1 (each time)
+})
+
+
+```
+
+<hr>
+
+**simulate()** - This method can be used to interact with a rendered element, for example, a button click can be simulated in a test with the following: 
+```html
+button.simulate('click');
+``` 
