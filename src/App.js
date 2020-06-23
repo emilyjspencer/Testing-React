@@ -15,11 +15,12 @@ class App extends Component {
   return (
     <div data-test="component-app">
       <h1>App</h1>
-      <button data-test="increment-button">I am a button</button>
-      <h2 data-test="counterDisplay">I am the counter</h2>
+      <button onClick={() => this.setState({ counter: this.state.counter + 1})} data-test="increment-button">I am a button</button>
+      <h2 data-test="counterDisplay">{this.state.counter}</h2>
     </div>
   );
 }
-}
+
+  }
 
 export default App;
