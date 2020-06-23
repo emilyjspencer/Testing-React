@@ -59,7 +59,7 @@ test('the counter starts at 0', () => {
   expect(initialCounterState).toBe(0);
 })
 
-test('the counter display is incremented by 1 on each button click', () => {
+test('the counter display is incremented by 1 on each increment button click', () => {
   const counter = 7;
   const wrapper = setup(null, { counter });
   const button = findByTestAttribute(wrapper, 'increment-button');
@@ -68,3 +68,12 @@ test('the counter display is incremented by 1 on each button click', () => {
   expect(counterDisplay.text()).toContain(counter + 1)
 })
 
+test('the counter display is decremented by 1 on each decrement button click', () => {
+const counter = 10;
+const wrapper = setup(null, { counter });
+const button = findByTestAttribute(wrapper, 'decrement-button');
+button.simulate('click');
+const counterDisplay = findByTestAttribute(wrapper, 'counterDisplay');
+expect(counterDisplay.text()).toContain(counter - 1);
+
+})
