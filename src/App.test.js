@@ -7,10 +7,9 @@ import App from './App';
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 
-test('renders correctly', () => {
+test('it renders without an error', () => {
   const wrapper = shallow(<App />);
-  console.log(wrapper.debug());
-  expect(wrapper).toBeTruthy();
-  
+  const appComponent  = wrapper.find("[test-data='component-app']")
+  expect(appComponent.length).toBe(1);
 });
 
