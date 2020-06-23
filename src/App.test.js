@@ -13,3 +13,9 @@ test('it renders without an error', () => {
   expect(appComponent.length).toBe(1);
 });
 
+test('it renders the increment button', () => {
+  const wrapper = shallow(<App />);
+  const button = wrapper.find("[data-test='increment-button']")
+  expect(button.length).toBe(1);
+});
+

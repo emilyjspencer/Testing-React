@@ -6,6 +6,7 @@ class App extends Component {
   return (
     <div data-test="component-app">
       <h1>App</h1>
+      <button data-test="increment-button">I am a button</button>
     </div>
   );
 }
