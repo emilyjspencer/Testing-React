@@ -19,3 +19,9 @@ test('it renders the increment button', () => {
   expect(button.length).toBe(1);
 });
 
+test('it renders the display counter', () => {
+  const wrapper = shallow(<App />);
+  const counterDisplay = wrapper.find("[data-test='counterDisplay']")
+  expect(counterDisplay.length).toBe(1);
+})
+
